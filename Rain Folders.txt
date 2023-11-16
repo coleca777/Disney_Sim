@@ -1,0 +1,5 @@
+KBAI/11_12 10_56 Rain from 190 to 264
+KBAI/11_12 11_15 Rain from 390 to 454
+KBAI/11_12 11_29 Rain from 660 to 728
+KBAI/11_15 13_13 Rain from 190 to 248
+KBAI/11_15 13_34 Rain from 190 to 257

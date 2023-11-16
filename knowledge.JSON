@@ -1,0 +1,504 @@
+{
+    "points": {
+        "Space Mountain": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 30,
+            "waitTime": 0,
+            "latitude": 28.418611,
+            "longitude": 81.578056,
+            "color": "purple"
+        },
+        "People Mover": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 40,
+            "waitTime": 0,
+            "latitude": 28.418056,
+            "longitude": 81.578889,
+            "color": "purple"
+        },
+        "Buzz Lightyear": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 12,
+            "waitTime": 0,
+            "latitude": 28.418056,
+            "longitude": 81.579167,
+            "color": "purple"
+        }, 
+        "Tomorrowland Speedway": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 8,
+            "waitTime": 0,
+            "latitude": 28.419167,
+            "longitude": 81.579167,
+            "color": "purple"
+        },
+        "Monster's Inc Laugh Floor": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 15,
+            "waitTime": 0,
+            "latitude": 28.418333,
+            "longitude": 81.579444,
+            "color": "purple"
+        },
+        "Astro Orbiter": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 7,
+            "waitTime": 0,
+            "latitude": 28.418333,
+            "longitude": 81.578889,
+            "color": "purple"
+        },
+        "Carousel of Progress": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 70,
+            "waitTime": 0,
+            "latitude": 28.417778,
+            "longitude": 81.578889,
+            "color": "purple"
+        }, 
+        "Teacups": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 13,
+            "waitTime": 0,
+            "latitude": 28.42,
+            "longitude": 81.579722,
+            "color": "magenta"
+        },
+        "Seven Dwarves Mine Train": { 
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 25,
+            "waitTime": 0,
+            "latitude": 28.420278,
+            "longitude": 81.580278,
+            "color": "magenta"
+        },
+        "Winnie the Pooh": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 13,
+            "waitTime": 0,
+            "latitude": 28.42,
+            "longitude":81.58,
+            "color": "magenta"
+        },
+        "Under the Sea": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 33,
+            "waitTime": 0,
+            "latitude": 28.420833,
+            "longitude": 81.579722,
+            "color": "magenta"
+        },
+        "Prince Charming's Carousel": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 27,
+            "waitTime": 0,
+            "latitude": 28.42,
+            "longitude": 81.581111,
+            "color": "magenta"
+        },
+        "Mickey's Philhart Magic": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 23,
+            "waitTime": 0,
+            "latitude": 28.42,
+            "longitude": 81.581389,
+            "color": "magenta"
+        },
+        "Small World": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 45,
+            "waitTime": 0,
+            "latitude": 28.420278,
+            "longitude": 81.581944,
+            "color": "magenta"
+        }, 
+        "Peter Pan": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 12,
+            "waitTime": 0,
+            "latitude": 28.420278,
+            "longitude": 81.581667,
+            "color": "magenta"
+        },
+        "Dumbo": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 15,
+            "waitTime": 0,
+            "latitude": 28.420278,
+            "longitude": 81.578889,
+            "color": "cyan"
+        },
+        "Goofy Barnstormer": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 6,
+            "waitTime": 0,
+            "latitude": 28.420556,
+            "longitude": 81.578333,
+            "color": "cyan"
+        },
+        "Haunted Mansion": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 48,
+            "waitTime": 0,
+            "latitude": 28.42,
+            "longitude": 81.582778,
+            "color": "yellow"
+        },
+        "Big Thunder Mountain": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 23,
+            "waitTime": 0,
+            "latitude": 28.419444,
+            "longitude": 81.584444,
+            "color": "orange"
+        },  
+        "Splash Mountain": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 18,
+            "waitTime": 0,
+            "latitude": 28.419167,
+            "longitude": 81.584722,
+            "color": "orange"
+        },
+        "Pirates": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 39,
+            "waitTime": 0,
+            "latitude": 28.418056,
+            "longitude": 81.584167,
+            "color": "red"
+        },
+        "Jungle Cruise": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 27,
+            "waitTime": 0,
+            "latitude": 28.417778,
+            "longitude": 81.583333,
+            "color": "red"
+        },
+        "Aladdin": {
+            "currPeople": 0,
+            "peopleList": [],
+            "waitList": [],
+            "throughput": 9,
+            "waitTime": 0,
+            "latitude": 28.418056,
+            "longitude": 81.583333,
+            "color": "red"
+        },
+        "Liberty Square": {
+            "currPeople": 0,
+            "peopleList": [],
+            "latitude": 28.419167,
+            "longitude": 81.5825,
+            "color": "yellow"
+        },
+        "Main Gate": {
+            "currPeople": 0,
+            "peopleList": [],
+            "latitude": 28.416111,
+            "longitude": 81.581111,
+            "color": "blue"
+        },
+        "Castle 1": {
+            "currPeople": 0,
+            "peopleList": [],
+            "latitude": 28.418889,
+            "longitude": 81.581111,
+            "color": "blue"
+        },
+        "Castle 2": {
+            "currPeople": 0,
+            "peopleList": [],
+            "latitude": 28.418611,
+            "longitude": 81.580833,
+            "color": "blue"
+        },
+        "Castle 3": {
+            "currPeople": 0,
+            "peopleList": [],
+            "latitude": 28.418333,
+            "longitude": 81.581111,
+            "color": "blue"
+        },
+        "Castle 4": {
+            "currPeople": 0,
+            "peopleList": [],
+            "latitude": 28.418611,
+            "longitude": 81.581389,
+            "color": "blue"
+        }            
+    },
+
+    "edges": {
+        "Space Mountain/Astro Orbiter": {
+            "distance": 95,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Astro Orbiter/People Mover": {
+            "distance": 25,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Space Mountain/Tomorrowland Speedway": {
+            "distance": 160,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Space Mountain/Carousel of Progress": {
+            "distance": 120,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Space Mountain/Goofy Barnstormer": {
+            "distance": 266,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Carousel of Progress/People Mover": {
+            "distance": 20,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Carousel of Progress/Buzz Lightyear": {
+            "distance": 0,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Buzz Lightyear/Monster's Inc Laugh Floor": {
+            "distance": 86,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Tomorrowland Speedway/Monster's Inc Laugh Floor": {
+            "distance": 130,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Monster's Inc Laugh Floor/Castle 2": {
+            "distance": 128,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Buzz Lightyear/People Mover": {
+            "distance": 42,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Tomorrowland Speedway/Astro Orbiter": {
+            "distance": 120,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Monster's Inc Laugh Floor/Astro Orbiter": {
+            "distance": 87,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Tomorrowland Speedway/Teacups": {
+            "distance": 117,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Teacups/Castle 2": {
+            "distance": 173,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Teacups/Dumbo": {
+            "distance": 106,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Teacups/Winnie the Pooh": {
+            "distance": 54,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Winnie the Pooh/Seven Dwarves Mine Train": {
+            "distance": 44,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Seven Dwarves Mine Train/Under the Sea": {
+            "distance": 159,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Under the Sea/Dumbo": {
+            "distance": 120,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Under the Sea/Prince Charming's Carousel": {
+            "distance": 172,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Prince Charming's Carousel/Seven Dwarves Mine Train": {
+            "distance": 63,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Castle 1/Prince Charming's Carousel": {
+            "distance": 160,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Mickey's Philhart Magic/Prince Charming's Carousel": {
+            "distance": 44,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Mickey's Philhart Magic/Peter Pan": {
+            "distance": 50,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Small World/Peter Pan": {
+            "distance": 20,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Small World/Haunted Mansion": {
+            "distance": 108,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Haunted Mansion/Liberty Square": {
+            "distance": 95,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Castle 4/Liberty Square": {
+            "distance": 140,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Aladdin/Liberty Square": {
+            "distance": 200,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Aladdin/Pirates": {
+            "distance": 140,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Aladdin/Jungle Cruise": {
+            "distance": 65,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Pirates/Splash Mountain": {
+            "distance": 215,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Splash Mountain/Liberty Square": {
+            "distance": 313,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Splash Mountain/Big Thunder Mountain": {
+            "distance": 56,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Liberty Square/Big Thunder Mountain": {
+            "distance": 293,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Pirates/Jungle Cruise": {
+            "distance": 100,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Castle 4/Jungle Cruise": {
+            "distance": 246,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Castle 4/Aladdin": {
+            "distance": 223,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Dumbo/Goofy Barnstormer": {
+            "distance": 73,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Castle 1/Castle 2": {
+            "distance": 40,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Castle 1/Castle 4": {
+            "distance": 40,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Castle 2/Castle 3": {
+            "distance": 40,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Castle 4/Castle 3": {
+            "distance": 40,
+            "peopleList": [],
+            "currPeople": 0
+        },
+        "Castle 3/Main Gate": {
+            "distance": 294,
+            "peopleList": [],
+            "currPeople": 0
+        }
+    }
+}
