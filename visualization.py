@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
 from matplotlib.colors import LinearSegmentedColormap
 import numpy as np
-from ipywidgets import interact
-import ipywidgets as widgets
-
+import shutil
+from zipfile import ZipFile
+from time import sleep
 
 def normalize(aList):
     for value in aList.values():
@@ -183,6 +183,11 @@ def box_plot(config):
     plt.show()
 
 def all_outputs(config):
+    zip_file = config + ".zip"
+    with ZipFile(zip_file, 'r') as zObject: 
+        zObject.extractall(path=config) 
+    zObject.close() 
+
     guest_json = config + "/Guest.json"
     graph_json = config + "/Graph.json"
     party_json = config + "/Party.json"
@@ -190,6 +195,8 @@ def all_outputs(config):
     guest_vis(guest_json)
     box_plot(guest_json)
     party_vis(party_json)
+    sleep(0.5)
+    shutil.rmtree(config)
 
 
 def party_vis(config):
@@ -248,5 +255,5 @@ def party_vis(config):
 # all_outputs(config)
 # config = "Output/Closest/11_06 18_01"
 # all_outputs(config)
-config = "Output/KBAI/11_15 13_34"
+config = "Output/Random/11_15 20_59"
 all_outputs(config)

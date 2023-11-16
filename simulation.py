@@ -7,6 +7,7 @@ from math import ceil
 from datetime import datetime
 from collections import Counter
 import os
+import shutil
 
 from dataclasses import dataclass, field
 from typing import Any
@@ -32,7 +33,7 @@ class Simulation:
         self.rain = False
         self.rain_rides = False
     
-    def main(self, thought: str, weatherList):
+    def main(self, thought: str, weatherList: list = []):
         while self.events.qsize() != 0 and self.time <= self.max_time:
             print(self.time)
             #Remove the placeholder initialization 
@@ -40,8 +41,8 @@ class Simulation:
                 self.events.get()
                 for weather in weatherList:
                     self.events.put(PrioritizedItem(weather, "Rain"))
-                # testParty = Party(0, 1, thought)
-                # self.events.put(PrioritizedItem(1, testParty))
+                # testParty = Party(1, 1, thought)
+                # self.events.put(PrioritizedItem(1, testParty))                            #This is used for testing purpose
                 # self.parties.append(testParty)
                 # self.people += 1
 
@@ -49,7 +50,7 @@ class Simulation:
             # This leads to an average of 55,800 guests
             if self.time < 3*60:
                 num_people = 0  
-                while num_people < 310:
+                while num_people < 310:                                                     #If testing comment out this entire if block
                     #TODO: Change distribution instead of just random
                     party_size = random.randint(1, 6)
                     party = Party(self.people + 1, party_size, thought)
@@ -269,6 +270,13 @@ class Simulation:
         with open(output_file3, 'w') as json_file:
             json.dump(party_dict, json_file)
 
+        # Specify the destination zip file path
+        zip_file_path = f"{folder_path}.zip"
+
+        # Create a zip file
+        shutil.make_archive(zip_file_path[:-4], 'zip', folder_path)
+
+        shutil.rmtree(folder_path)
         return
 
     #Primiarly for the visualization and stats
