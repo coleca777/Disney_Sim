@@ -45,6 +45,7 @@ class Simulation:
                 # self.events.put(PrioritizedItem(1, testParty))                            #This is used for testing purpose
                 # self.parties.append(testParty)
                 # self.people += 1
+                # self.points["Main Gate"]["currPeople"] += 1
 
             # For the first 3 hours of park being open, roughly 310 people enter the park
             # This leads to an average of 55,800 guests
@@ -58,6 +59,7 @@ class Simulation:
                     self.events.put(PrioritizedItem(self.time+1, party))
                     num_people += party_size
                     self.people += party_size
+                    self.points["Main Gate"]["currPeople"] += party_size
 
             #Go through all events who's priority matches the current time
             while True:
@@ -90,9 +92,6 @@ class Simulation:
                     self.rain_rides = False
 
                 elif currParty.action == "Decide":
-                    if currParty.current_location == "Main Gate":
-                        self.points["Main Gate"]["currPeople"] += len(currParty.guests)
-
                     #Chooses next ride based on the party's thought (random, KBAI, or closest)
                     ride, speed = currParty.decide(self.magic_kingdom, self.points, self.rain_rides, self.rain)
 
@@ -130,8 +129,6 @@ class Simulation:
 
                     #Updates any other feature realted to the party    
                     currParty.walking_time += ceil(distance / speed)
-                    # for guest in currParty.guests:
-                    #     guest.energy -= 0.75*ceil(distance / speed) * guest.energy_depletion
                     currParty.action = "Walk"
                     currParty.get_satisfactions(ceil(distance / speed), 0, self.rain)
 
@@ -140,57 +137,40 @@ class Simulation:
                     self.edges[currParty.current_location]["currPeople"] -= currParty.party_size
                     currParty.current_location = currParty.next_location
 
-                    # if self.rain:
-                    #     if len(currParty.path) == 0:
-                    #         if currParty.can_ride(currParty.current_location):
-                    #             currParty.action = "Ride"
-                    #         else:
-                    #             currParty.action = "Decide"
-                    #         self.events.put(PrioritizedItem(priority, currParty))
-                    #         continue
+                    if len(currParty.path) == 0:
+                        currParty.action = "Ride"
+                        self.points[currParty.current_location]["currPeople"] += currParty.party_size
+                        self.events.put(PrioritizedItem(self.time, currParty))
+                        continue
 
-                    #     #Grabs the next location and its distance       
-                    #     currParty.path = []
-                    #     currParty.action = "Decide"
-                    #     self.events.put(PrioritizedItem(priority, currParty))
-                    if True:
-                        if len(currParty.path) == 0:
-                            currParty.action = "Ride"
-                            self.events.put(PrioritizedItem(self.time, currParty))
-                            continue
+                    #Grabs the next location and its distance       
+                    next_location = currParty.path.pop(0)
+                    currParty.next_location = next_location
+                    distance = self.magic_kingdom.graph[currParty.current_location][next_location]["weight"]
 
-                        #Grabs the next location and its distance       
-                        next_location = currParty.path.pop(0)
-                        currParty.next_location = next_location
-                        distance = self.magic_kingdom.graph[currParty.current_location][next_location]["weight"]
+                    #Calculate the time it will take based on slowest member
+                    next_time = ceil(distance / speed) + self.time
 
-                        #Calculate the time it will take based on slowest member
-                        next_time = ceil(distance / speed) + self.time
+                    #Add a new event into the queue
+                    self.events.put(PrioritizedItem(next_time, currParty))
 
-                        #Add a new event into the queue
-                        self.events.put(PrioritizedItem(next_time, currParty))
+                    #Update the current people for both the old location and the next edge
+                    oldLocation = currParty.current_location
+                    str1 = f"{oldLocation}/{next_location}"
+                    str2 = f"{next_location}/{oldLocation}"
+                    if str1 in self.edges:
+                        self.edges[str1]["currPeople"] += currParty.party_size
+                        currParty.current_location = str1
+                    else:
+                        self.edges[str2]["currPeople"] += currParty.party_size
+                        currParty.current_location = str2
 
-                        #Update the current people for both the old location and the next edge
-                        oldLocation = currParty.current_location
-                        str1 = f"{oldLocation}/{next_location}"
-                        str2 = f"{next_location}/{oldLocation}"
-                        if str1 in self.edges:
-                            self.edges[str1]["currPeople"] += currParty.party_size
-                            currParty.current_location = str1
-                        else:
-                            self.edges[str2]["currPeople"] += currParty.party_size
-                            currParty.current_location = str2
-
-                        #Updates any other feature realted to the party    
-                        currParty.walking_time += ceil(distance / speed)
-                        # for guest in currParty.guests:
-                        #     guest.energy -= 0.75*ceil(distance / speed) * guest.energy_depletion
-                        
-                        currParty.get_satisfactions(ceil(distance / speed), 0, self.rain)
+                    #Updates any other feature realted to the party    
+                    currParty.walking_time += ceil(distance / speed)                    
+                    currParty.get_satisfactions(ceil(distance / speed), 0, self.rain)
                     
 
                 elif currParty.action == "Ride":
-                    self.points[currParty.current_location]["currPeople"] += currParty.party_size
                     if currParty.current_location == "Main Gate":
                         currParty.action = "Going Home"
                         self.events.put(PrioritizedItem(self.time+1, currParty))
@@ -205,15 +185,13 @@ class Simulation:
                     #and exit even if the ride has 0 wait time
                     next_time = wait_time + 5 + self.time
                     currParty.wait_time += wait_time
-                    # for guest in currParty.guests:
-                    #     guest.energy -= 0.2*wait_time * guest.energy_depletion
                     currParty.action = "Decide" 
                     self.events.put(PrioritizedItem(next_time, currParty))
                     currParty.get_satisfactions(0, wait_time, self.rain)
 
 
                 elif currParty.action == "Going Home":
-                    self.points["Main Gate"]["currPeople"] -= len(currParty.guests)
+                    self.points["Main Gate"]["currPeople"] -= currParty.party_size
                     currParty.action = "Resting"
                     self.events.put(PrioritizedItem(self.time+30, currParty))
 
@@ -235,8 +213,6 @@ class Simulation:
                 elif currParty.action == "Going Back":
                     currParty.action = "Decide"
                     self.events.put(PrioritizedItem(self.time+30, currParty))
-
-
 
             self.update()
             self.time += 1
@@ -261,6 +237,7 @@ class Simulation:
         output_file = f"{folder_path}/Graph.json"
         output_file2 = f"{folder_path}/Guest.json"
         output_file3 = f"{folder_path}/Party.json"
+
         with open(output_file, 'w') as json_file:
             json.dump(combined_dict, json_file)
 
@@ -318,6 +295,9 @@ class Simulation:
                     p.unique_rides = len(Counter(p.rides))
                     p.get_satisfactions(0, -waitTimeRemaining, self.rain)
                     newQueue.put(PrioritizedItem(self.time, p))
+            
+            elif p.action == "Decide":
+                newQueue.put(PrioritizedItem(priority, p))
 
             elif p.action == "Ride":
                 if not p.can_ride(p.current_location):
@@ -326,7 +306,7 @@ class Simulation:
                 newQueue.put(PrioritizedItem(priority, p))
             
             elif p.action == "Walk":
-                #If the party has reached their destination
+                #If the party has is about to reach their destination
                 if p.path == []:
                     if p.can_ride(p.next_location):
                         newQueue.put(PrioritizedItem(priority, p))
@@ -358,4 +338,4 @@ class Simulation:
 
 # knowledge_JSON = "knowledge.JSON"
 # simulation = Simulation(knowledge_JSON)
-# simulation.main("KBAI", [190])
+# simulation.main("Random", [190])

@@ -1,3 +1,5 @@
 KBAI/11_15 21_53 Rain at 190 to 265
 KBAI/11_15 22_17 Rain at 390 to 419
 KBAI/11_15 22_30 Rain at 660 to 729
+Random/11_16 11_21 Rain at 190 to 256
+Random/11_16 13_52 Rain at 190 to 259

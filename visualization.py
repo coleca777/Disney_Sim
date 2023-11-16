@@ -5,7 +5,6 @@ from matplotlib.colors import LinearSegmentedColormap
 import numpy as np
 import shutil
 from zipfile import ZipFile
-from time import sleep
 
 def normalize(aList):
     for value in aList.values():
@@ -195,7 +194,7 @@ def all_outputs(config):
     guest_vis(guest_json)
     box_plot(guest_json)
     party_vis(party_json)
-    sleep(0.5)
+
     shutil.rmtree(config)
 
 
@@ -255,5 +254,5 @@ def party_vis(config):
 # all_outputs(config)
 # config = "Output/Closest/11_06 18_01"
 # all_outputs(config)
-config = "Output/Random/11_15 20_59"
+config = "Output/Random/11_16 11_21"
 all_outputs(config)
