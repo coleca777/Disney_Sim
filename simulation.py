@@ -84,8 +84,8 @@ class Simulation:
                         self.rain_rides = True
                         self.events = self.update_events()
                         rain_time = random.randint(25, 75)
-                        print(f"Rain will stop at {self.time+rain_time}")
-                        self.events.put(PrioritizedItem(self.time + rain_time, "Rain"))
+                        print(f"Rain will stop at {self.time+ 60}")
+                        self.events.put(PrioritizedItem(self.time + 60, "Rain"))
 
                 elif currParty == "Open":
                     print("Rides have opened back up")
@@ -212,6 +212,7 @@ class Simulation:
 
                 elif currParty.action == "Going Back":
                     currParty.action = "Decide"
+                    self.points["Main Gate"]["currPeople"] += currParty.party_size  #Needs to be updated in the future, since it is technically incorrect
                     self.events.put(PrioritizedItem(self.time+30, currParty))
 
             self.update()

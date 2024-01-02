@@ -2,20 +2,21 @@ import json
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
 from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.animation import FuncAnimation
 import numpy as np
 import shutil
 from zipfile import ZipFile
+import os
 
 def normalize(aList):
     for value in aList.values():
         normList = np.array(value["peopleList"])
-        norm = np.linalg.norm(normList)
         if np.max(normList) != 0:
             value["peopleList"] = normList / np.max(normList)
     return aList
 
 
-def graph_vis(config):
+def graph_vis(config, folder_path):
     f = open(config)
     data = json.load(f)
 
@@ -93,11 +94,22 @@ def graph_vis(config):
     # ani = FuncAnimation(fig, animate_slider, frames=np.arange(0, 841, 1), repeat=True, interval=100)
 
     # # Save the animation as a GIF
-    # ani.save("heatmap_animation.gif", writer="pillow", fps=120)
+    # ani.save("KBAI Park Distribution.gif", writer="pillow", fps=120)
 
-    plt.show()
 
-def guest_vis(config):
+    slider.val = 180
+    update(180)
+    plt.savefig(folder_path + "/Graph Noon.png")
+    slider.val = 420
+    update(420)
+    plt.savefig(folder_path + "/Graph Middle.png")
+    slider.val = 840
+    update(840)
+    plt.savefig(folder_path + "/Graph End.png")
+
+    # plt.show()
+
+def guest_vis(config, folder_path):
     f = open(config)
     satisfactions = json.load(f)
 
@@ -136,13 +148,14 @@ def guest_vis(config):
         ax.clear()
         ax.bar(unique_values, percentages, width=1)
         ax.set_xlabel("Satisfaction Value")
-        ax.set_ylabel("Percentage")
+        ax.set_ylabel("Percentage of Guests")
         ax.set_xlim(min_satisfaction, max_satisfaction)
-        ax.set_ylim(0, 100)
+        ax.set_ylim(0, max(percentages))
         fig.canvas.draw()
 
     fig, ax = plt.subplots()
     plt.subplots_adjust(bottom=0.25)
+    fig.suptitle('Guest Satisfaction', fontsize=16)
 
     # Create a slider for selecting the index
     slider_ax = plt.axes([0.25, 0.1, 0.65, 0.03], facecolor='lightgoldenrodyellow')
@@ -152,9 +165,32 @@ def guest_vis(config):
 
     update_histogram(0, slider)  # Initial plot
 
-    plt.show()
 
-def box_plot(config):
+    # # Function to animate the slider
+    # def animate_slider(frame):
+    #     slider.set_val(frame)
+    #     print(frame)
+    #     update_histogram(frame, slider)
+    # # Create an animation that moves the slider back and forth
+    # ani = FuncAnimation(fig, animate_slider, frames=np.arange(0, 841, 1), repeat=True, interval=100)
+
+    # # Save the animation as a GIF
+    # ani.save("KBAI Guest Satisfaction.gif", writer="pillow", fps=120)
+
+    slider.val = 180
+    update_histogram(180, slider)
+    plt.savefig(folder_path + "/Guest Noon.png")
+    slider.val = 420
+    update_histogram(420, slider)
+    plt.savefig(folder_path + "/Guest Middle.png")
+    slider.val = 840
+    update_histogram(840, slider)
+    plt.savefig(folder_path + "/Guest End.png")
+
+    # plt.show()
+
+def box_plot(config, folder_path):
+    plt.clf()
     f = open(config)
     satisfactions = json.load(f)
 
@@ -163,8 +199,6 @@ def box_plot(config):
     q1 = np.percentile(data, 25)  # 1st quartile
     q2 = np.percentile(data, 50)  # 2nd quartile (median)
     q3 = np.percentile(data, 75)  # 3rd quartile
-    min_value = np.min(data)
-    max_value = np.max(data)
 
     iqr = q3 - q1
 
@@ -179,7 +213,7 @@ def box_plot(config):
     plt.boxplot(data, vert=False)  # Flip the axes
     plt.title("Box and Whisker Plot")
     plt.xlabel("Satisfaction")
-    plt.show()
+    plt.savefig(folder_path + "/Guest Box.png")
 
 def all_outputs(config):
     zip_file = config + ".zip"
@@ -187,72 +221,153 @@ def all_outputs(config):
         zObject.extractall(path=config) 
     zObject.close() 
 
+    config_parts = config.split("/")
+    folder_path = f"Images/{config_parts[1]}/{config_parts[2]}"
+    if not os.path.isdir(folder_path):
+        os.mkdir(folder_path)
+
     guest_json = config + "/Guest.json"
     graph_json = config + "/Graph.json"
     party_json = config + "/Party.json"
-    graph_vis(graph_json)
-    guest_vis(guest_json)
-    box_plot(guest_json)
-    party_vis(party_json)
-
+    
+    # graph_vis(graph_json, folder_path)
+    # guest_vis(guest_json, folder_path)
+    # box_plot(guest_json, folder_path)
+    party_vis(party_json, folder_path)
+    
     shutil.rmtree(config)
 
 
-def party_vis(config):
+def party_vis(config, folder_path):
     f = open(config)
     parties = json.load(f)
     num_rides_list = []
     walk_list = []
     wait_list = []
 
-    for party, value in parties.items():
+    for value in parties.values():
         # print(f"This party rode {len(value['rides'])} rides, waited for {value['wait']} minutes, walked for {value['walk']} minutes, and has {value['num_guest']} guests")
         num_rides_list.append(len(value["rides"]))
         walk_list.append(value["walk"])
         wait_list.append(value["wait"])
 
-    plt.subplot(2, 2, 1)  
+    print(f"Median Ride Num {np.mean(num_rides_list)}") 
+    print(f"Median Walk time {np.mean(walk_list)}") 
+    print(f"Median Wait Time {np.mean(wait_list)}") 
+
+    # plt.subplot(2, 2, 1)
+    plt.clf()  
     min_value = min(num_rides_list)
     max_value = max(num_rides_list)
     value_range = range(min_value, max_value + 1)
-    value_counts = [num_rides_list.count(value) for value in value_range]  
+    value_counts = [num_rides_list.count(value) for value in value_range]
     plt.bar(value_range, value_counts)
     # Add labels and title
     plt.xlabel("Num of Rides")
     plt.ylabel("Num of Parties")
     plt.title("Number of Rides for All Parties")
+    plt.savefig(folder_path + "/Party ride.png")
 
-
-    plt.subplot(2, 2, 2)  
+    # # plt.subplot(2, 2, 2)  
+    plt.clf()
     min_value = min(walk_list)
     max_value = max(walk_list)
     value_range = range(min_value, max_value + 1)
-    value_counts = [walk_list.count(value) for value in value_range]  
+    value_counts = [walk_list.count(value) for value in value_range] 
     plt.bar(value_range, value_counts)
     # Add labels and title
     plt.xlabel("Walking Time (min)")
     plt.ylabel("Num of Parties")
     plt.title("Walking Time (min) for All Parties")
+    plt.savefig(folder_path + "/Party walk.png")
 
-    plt.subplot(2, 2, 3)  
+    # # plt.subplot(2, 2, 3)  
+    plt.clf()
     min_value = min(wait_list)
     max_value = max(wait_list)
     value_range = range(min_value, max_value + 1)
-    value_counts = [wait_list.count(value) for value in value_range]  
+    value_counts = [wait_list.count(value) for value in value_range] 
     plt.bar(value_range, value_counts)
     # Add labels and title
     plt.xlabel("Waiting Time (min)")
     plt.ylabel("Num of Parties")
     plt.title("Waiting Time (min) for All Parties")
-
-    plt.subplots_adjust(hspace=0.3)
-    # Show the plot
-    plt.show()
+    plt.savefig(folder_path + "/Party wait.png")
     
 
-# config = "Output/KBAI/11_09 15_42"
+# config = "Output/KBAI/11_27 20_37"
 # all_outputs(config)
-# config = "Output/Closest/11_06 18_01"
-# all_outputs(config)
-config = "Output/Random/11_16 11_21"
+config = "Output/Closest/11_28 06_54"
 all_outputs(config)
+
+
+def all_box(configList):
+    dataList = []
+    for config in configList:
+        zip_file = config + ".zip"
+        with ZipFile(zip_file, 'r') as zObject: 
+            zObject.extractall(path=config) 
+        zObject.close() 
+
+        guest_json = config + "/Guest.json"
+
+        f = open(guest_json)
+        satisfactions = json.load(f)
+        data = [val[-1] for val in satisfactions.values()]
+        dataList.append(data)
+        print(np.mean(data), len(data), np.std(data))
+        # shutil.rmtree(config)
+    fig, ax = plt.subplots()
+
+    # Set positions for the three boxes
+    positions = list(range(1, len(configList) + 1))
+    dataList.reverse()
+    # Create boxplots
+    ax.boxplot(dataList, positions=positions, vert=False)
+
+    # Set labels and title
+    ax.set_yticks(positions)
+    ax.set_yticklabels(['8:00 PM', '3:30 PM', '12:10 PM', 'No Rain'])
+    ax.set_xlabel('Satisfactions')
+    ax.set_ylabel('Thought')
+    ax.set_title('Final Guest Satisfactions With Rain')
+    plt.savefig("Final Guest Rain Box.png")
+
+# all_box(["Output/KBAI/11_28 07_13", "Output/KBAI/11_28 07_34", "Output/KBAI/11_28 07_54", "Output/KBAI/11_28 08_10"])
+
+
+
+def find_attendence(config,ind):
+    zip_file = config + ".zip"
+    with ZipFile(zip_file, 'r') as zObject: 
+        zObject.extractall(path=config) 
+    zObject.close() 
+
+    guest_json = config + "/Graph.json"
+
+    f = open(guest_json)
+    data = json.load(f)
+    edges = data['edges']
+    points = data['points']
+
+    total_people = 0
+    for edge in edges.values():
+        total_people += edge["peopleList"][ind]
+    for point in points.values():
+        total_people += point["peopleList"][ind]
+
+    # shutil.rmtree(config)
+    return total_people
+
+# for ind in range(185, 251):
+#     print(f"At Time {ind}, there are {find_attendence('Output/KBAI/11_28 07_34', ind)} people in the park")
+
+# for ind in range(385, 451):
+#     print(f"At Time {ind}, there are {find_attendence('Output/KBAI/11_28 07_54', ind)} people in the park")
+
+# for ind in range(655, 721):
+#     print(f"At Time {ind}, there are {find_attendence('Output/KBAI/11_28 08_10', ind)} people in the park")
+
+# for ind in range(385, 451):
+#     print(f"At Time {ind}, there are {find_attendence('Output/KBAI/11_28 07_13', ind)} people in the park")
+
